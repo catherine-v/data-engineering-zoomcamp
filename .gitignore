@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# IDE settings
+.vscode/
+
+# Weekly content
+week_1/ny_taxi_postgres_data/
+week_1/yellow_tripdata_2021-01.csv*
+week_1/pgadmin/
