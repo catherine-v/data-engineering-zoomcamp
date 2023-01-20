@@ -2,7 +2,6 @@
 # coding: utf-8
 import argparse
 import os
-import logging
 from time import time
 
 import pandas as pd
@@ -18,7 +17,7 @@ def main(params):
     table_name = params.table_name
     url = params.url
 
-    logging.info("Downloading the file...")
+    print("Downloading the file...")
     if url.endswith(".csv.gz"):
         csv_name = "output.csv.gz"
     else:
@@ -26,22 +25,22 @@ def main(params):
 
     os.system(f"wget {url} -O {csv_name}")
 
-    logging.info("Connecting to the DB...")
+    print("Connecting to the DB...")
     engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
     engine.connect()
 
-    logging.info("Creating the table...")
+    print("Creating the table...")
     df = pd.read_csv(
         csv_name,
-        parse_dates=["tpep_pickup_datetime", "tpep_dropoff_datetime"],
+        parse_dates=params.date_columns,
         nrows=100,
     )
     df.head(n=0).to_sql(table_name, con=engine, if_exists="replace")
 
-    logging.info("Uploading data...")
+    print("Uploading data...")
     df_iter = pd.read_csv(
         csv_name,
-        parse_dates=["tpep_pickup_datetime", "tpep_dropoff_datetime"],
+        parse_dates=params.date_columns,
         iterator=True,
         chunksize=100_000,
     )
@@ -49,11 +48,11 @@ def main(params):
         start = time()
         df.to_sql(table_name, con=engine, if_exists="append")
         end = time()
-        logging.info(
+        print(
             "...uploaded chunk %d of %d records. It took %.3f seconds"
             % (i, len(df), end - start)
         )
-    logging.info("Finished.")
+    print("Finished.")
 
 
 if __name__ == "__main__":
@@ -70,6 +69,7 @@ if __name__ == "__main__":
         help="name of the table where we will write the results to",
     )
     parser.add_argument("--url", required=True, help="url of the csv file")
+    parser.add_argument("--date-column", nargs="+", default=[], dest="date_columns")
 
     args = parser.parse_args()
 

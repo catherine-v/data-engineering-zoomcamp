@@ -18,15 +18,17 @@ services:
       - "./pgadmin:/var/lib/pgadmin"
     ports:
       - "8080:80"
-  # ingestion:
-  #   image: taxi_ingest
-  #   depends_on:
-  #     - pgdatabase
-  #   command:
-  #     - --user=root
-  #     - --password=root
-  #     - --host=pgdatabase
-  #     - --port=5432
-  #     - --db=ny_taxi
-  #     - --table_name=yellow_tripdata_trip
-  #     - --url=https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz
+  ingestion:
+    image: taxi_ingest:latest
+    depends_on:
+      - pgdatabase
+    command:
+      - --user=root
+      - --password=root
+      - --host=pgdatabase
+      - --port=5432
+      - --db=ny_taxi
+      - --table_name=green_tripdata_trip
+      - --url=https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-01.csv.gz
+      - --date-column=lpep_pickup_datetime
+      - --date-column=lpep_dropoff_datetime
