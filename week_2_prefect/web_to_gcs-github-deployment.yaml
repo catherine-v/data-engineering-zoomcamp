@@ -1,7 +1,7 @@
 ###
 ### A complete description of a Prefect Deployment for flow 'etl-parent-flow'
 ###
-name: web_to_gcs
+name: web_to_gcs_github
 description: null
 version: a8b0bf233083d08381fbb54de99db1a3
 # The work queue that will handle this deployment's runs
@@ -12,10 +12,7 @@ parameters:
   year: 2020
   months:
   - 11
-schedule:
-  cron: 0 5 1 * *
-  timezone: null
-  day_or: true
+schedule: null
 infra_overrides: {}
 
 ###
@@ -31,8 +28,8 @@ infrastructure:
   command: null
   stream_output: true
   working_dir: null
-  _block_document_id: f9dbc84b-638a-4fe1-b64b-8937b5131bb7
-  _block_document_name: anonymous-8bca5b22-3b50-4173-9530-a9a90ecb26a8
+  _block_document_id: 03feb763-10e5-461d-9034-0fd656e6c65a
+  _block_document_name: anonymous-96cb8d90-90b7-4ed2-9e53-92392b5b2fb4
   _is_anonymous: true
   block_type_slug: process
   _block_type_slug: process
