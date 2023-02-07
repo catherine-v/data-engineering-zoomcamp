@@ -1,0 +1,62 @@
+###
+### A complete description of a Prefect Deployment for flow 'el-parent-flow'
+###
+name: gcs_to_bq
+description: null
+version: 1d58a34f5e7008f3c0333ea86c4a651b
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters:
+  color: yellow
+  year: 2019
+  months:
+  - 2
+  - 3
+schedule:
+  cron: 0 5 1 * *
+  timezone: null
+  day_or: true
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: el-parent-flow
+manifest_path: null
+storage: null
+path: /Users/ekaterinavolkova/work/data-engineering-zoomcamp/week_2_prefect
+entrypoint: etl_gcs_to_bq.py:el_parent_flow
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    color:
+      title: color
+      position: 0
+      type: string
+    year:
+      title: year
+      position: 1
+      type: integer
+    months:
+      title: months
+      position: 2
+      type: array
+      items:
+        type: integer
+  required:
+  - color
+  - year
+  - months
+  definitions: null
