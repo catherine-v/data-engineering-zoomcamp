@@ -36,13 +36,13 @@ infrastructure:
 storage:
   repository: https://github.com/catherine-v/data-engineering-zoomcamp.git
   reference: null
-  access_token: '**********'
+  access_token: null
   _block_document_id: b16a10be-7b6a-4a26-b645-1802dbf1760a
   _block_document_name: github
   _is_anonymous: false
   block_type_slug: github
   _block_type_slug: github
-path: week_2_prefect
+path: ''
 entrypoint: week_2_prefect/etl_web_to_gcs.py:etl_parent_flow
 parameter_openapi_schema:
   title: Parameters
