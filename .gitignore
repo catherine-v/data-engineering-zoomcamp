@@ -139,3 +139,5 @@ week_1_docker/pgadmin/
 week_1_terraform/.terraform/
 
 week_2_prefect/data/*
+
+week_3_bq/data/*
