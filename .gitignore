@@ -132,6 +132,7 @@ dmypy.json
 .vscode/
 
 # Weekly content
+data/*
 week_1_docker/ny_taxi_postgres_data/
 week_1_docker/*.csv*
 week_1_docker/pgadmin/

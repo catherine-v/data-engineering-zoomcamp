@@ -23,13 +23,13 @@ def load(path: Path) -> pd.DataFrame:
 
 
 @task()
-def write_bq(df: pd.DataFrame) -> None:
+def write_bq(df: pd.DataFrame, color: str) -> None:
     """Write DataFrame to BiqQuery"""
 
     gcp_credentials_block = GcpCredentials.load("gcp-cred")
 
     df.to_gbq(
-        destination_table="trips_data_all.trips",
+        destination_table=f"trips_data_all.trips_{color}",
         project_id="smiling-breaker-376117",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
         chunksize=500_000,
@@ -42,7 +42,7 @@ def el_gcs_to_bq(color: str, year: int, month: int) -> int:
     """Main ETL flow to load data into Big Query"""
     path = extract_from_gcs(color, year, month)
     df = load(path)
-    write_bq(df)
+    write_bq(df, color)
     return len(df)
 
 
@@ -58,6 +58,6 @@ def el_parent_flow(color: str, year: int, months: List[int]) -> None:
 
 if __name__ == "__main__":
     color = "yellow"
-    year = 2019
-    months = [2, 3]
+    year = 2020
+    months = list(range(1, 13))
     el_parent_flow(color, year, months)
